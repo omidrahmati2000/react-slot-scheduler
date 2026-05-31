@@ -1,6 +1,6 @@
 {
   "name": "@omidrahmati/react-slot-scheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production-ready React scheduler with time-grid, task timeline (Gantt), and resource planning modes",
   "keywords": [
     "react",
@@ -29,7 +29,7 @@
     "time-slots",
     "slot-picker"
   ],
-  "homepage": "https://github.com/omidrahmati2000/react-slot-scheduler",
+  "homepage": "https://react-slot-scheduler-y7ff.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/omidrahmati2000/react-slot-scheduler.git"
