@@ -1,0 +1,88 @@
+{
+  "name": "@omidrahmati/react-slot-scheduler",
+  "version": "1.0.0",
+  "description": "Production-ready React scheduler with time-grid, task timeline (Gantt), and resource planning modes",
+  "keywords": [
+    "react",
+    "calendar",
+    "scheduler",
+    "booking",
+    "slot",
+    "appointment",
+    "rtl",
+    "persian",
+    "farsi",
+    "arabic",
+    "jalali",
+    "weekly-calendar",
+    "daily-calendar",
+    "gantt",
+    "timeline",
+    "resource-planning",
+    "drag-drop",
+    "dark-mode",
+    "typescript",
+    "next.js",
+    "zero-deps",
+    "booking-calendar",
+    "react-scheduler",
+    "time-slots",
+    "slot-picker"
+  ],
+  "homepage": "https://github.com/omidrahmati2000/react-slot-scheduler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omidrahmati2000/react-slot-scheduler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/omidrahmati2000/react-slot-scheduler/issues"
+  },
+  "license": "MIT",
+  "author": "Omid Rahmati <omidrahmati2000@gmail.com> (https://github.com/omidrahmati2000)",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./dist/index.css": "./dist/index.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitest/coverage-v8": "^4.1.7",
+    "jsdom": "^29.1.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.7"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --sourcemap --clean",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "pack:check": "npm pack --dry-run",
+    "prepublishOnly": "npm run build && npm run typecheck"
+  }
+}

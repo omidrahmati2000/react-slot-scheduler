@@ -1,0 +1,16 @@
+# source — consumers only need dist/
+src/
+example/
+media/
+
+# config / tooling
+tsconfig.json
+vitest.config.ts
+vitest.setup.ts
+.gitignore
+.playwright-mcp/
+
+# dev artifacts
+coverage/
+*.tgz
+test-*.png

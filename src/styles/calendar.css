@@ -1,0 +1,63 @@
+.rbc-root {
+  --rbc-primary: #0f766e;
+  --rbc-bg: #f4f7f7;
+  --rbc-panel: #ffffff;
+  --rbc-border: #d6e0df;
+  --rbc-text: #102725;
+  --rbc-muted: #5c7270;
+  --rbc-available: #dcfce7;
+  --rbc-booked: #fee2e2;
+  --rbc-blocked: #e5e7eb;
+  --rbc-custom: #e0f2fe;
+  background: var(--rbc-bg);
+  color: var(--rbc-text);
+  border: 1px solid var(--rbc-border);
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: ui-sans-serif, -apple-system, Segoe UI, sans-serif;
+}
+.rbc-toolbar { display: flex; gap: 8px; justify-content: space-between; align-items: center; padding: 12px; background: var(--rbc-panel); border-bottom: 1px solid var(--rbc-border); }
+.rbc-rtl .rbc-toolbar { direction: rtl; }
+.rbc-ltr .rbc-toolbar { direction: ltr; }
+.rbc-btn { border: 1px solid var(--rbc-border); background: var(--rbc-panel); color: var(--rbc-text); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+.rbc-btn:focus-visible {
+  outline: 2px solid var(--rbc-primary);
+  outline-offset: 2px;
+}
+.rbc-btn.active { background: var(--rbc-primary); border-color: var(--rbc-primary); color: #fff; }
+.rbc-grid {
+  display: grid;
+  grid-template-columns: 72px repeat(var(--rbc-days), minmax(0, 1fr));
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 72vh;
+}
+.rbc-cell, .rbc-time { border-right: 1px solid var(--rbc-border); border-bottom: 1px solid var(--rbc-border); position: relative; }
+.rbc-time { padding: 6px; font-size: 11px; color: var(--rbc-muted); background: var(--rbc-panel); }
+.rbc-day-head { position: sticky; top: 0; z-index: 2; background: var(--rbc-panel); padding: 10px; font-size: 13px; border-bottom: 1px solid var(--rbc-border); }
+.rbc-day-head.today { background: color-mix(in srgb, var(--rbc-primary) 15%, var(--rbc-panel)); font-weight: 700; }
+.rbc-slot { position: absolute; left: 6px; right: 6px; border-radius: 8px; padding: 6px; font-size: 12px; border: 1px solid transparent; overflow: hidden; }
+.rbc-slot.available { background: var(--rbc-available); }
+.rbc-slot.booked { background: var(--rbc-booked); cursor: pointer; }
+.rbc-slot.blocked, .rbc-slot.outside { background: var(--rbc-blocked); }
+.rbc-slot.custom { background: var(--rbc-custom); }
+.rbc-slot:focus-visible {
+  outline: 2px solid var(--rbc-primary);
+  outline-offset: 1px;
+}
+.rbc-empty-col { position: relative; pointer-events: none; z-index: 1; }
+.rbc-slot { pointer-events: auto; }
+.rbc-drop-target { background: color-mix(in srgb, var(--rbc-primary) 10%, transparent); }
+.rbc-cell-selected {
+  background: color-mix(in srgb, var(--rbc-primary) 20%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--rbc-primary) 65%, #ffffff);
+}
+.rbc-label { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rbc-sub { font-size: 11px; color: var(--rbc-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 900px) {
+  .rbc-grid {
+    grid-template-columns: 56px repeat(var(--rbc-days), minmax(130px, 1fr));
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

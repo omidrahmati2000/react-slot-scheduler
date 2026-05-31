@@ -1,0 +1,316 @@
+.gantt-root {
+  --gantt-primary: #0f766e;
+  --gantt-bg: #f4f7f7;
+  --gantt-panel: #ffffff;
+  --gantt-border: #d6e0df;
+  --gantt-text: #102725;
+  --gantt-muted: #5c7270;
+  --gantt-booked: #fee2e2;
+  --gantt-blocked: #e5e7eb;
+  --gantt-custom: #e0f2fe;
+  background: var(--gantt-bg);
+  color: var(--gantt-text);
+  border: 1px solid var(--gantt-border);
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: ui-sans-serif, -apple-system, 'Segoe UI', sans-serif;
+  user-select: none;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────── */
+.gantt-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--gantt-panel);
+  border-bottom: 1px solid var(--gantt-border);
+  gap: 8px;
+}
+.gantt-rtl .gantt-toolbar { direction: rtl; }
+.gantt-ltr .gantt-toolbar { direction: ltr; }
+
+.gantt-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gantt-text);
+}
+
+.gantt-btn {
+  border: 1px solid var(--gantt-border);
+  background: var(--gantt-panel);
+  color: var(--gantt-text);
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.15s;
+}
+.gantt-btn:hover { background: var(--gantt-border); }
+.gantt-btn:focus-visible {
+  outline: 2px solid var(--gantt-primary);
+  outline-offset: 2px;
+}
+
+/* ── Scrollable wrapper ───────────────────────────────────────────── */
+.gantt-scroll-wrap {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 72vh;
+}
+
+/* ── Label column (fixed left) ────────────────────────────────────── */
+.gantt-label-col {
+  width: 144px;
+  min-width: 144px;
+  flex-shrink: 0;
+  background: var(--gantt-panel);
+  border-right: 2px solid var(--gantt-border);
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gantt-rtl .gantt-label-col {
+  border-right: none;
+  border-left: 2px solid var(--gantt-border);
+}
+
+.gantt-header-label {
+  height: 40px;
+}
+
+.gantt-row-label-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gantt-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gantt-row-sublabel {
+  font-size: 11px;
+  color: var(--gantt-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+.gantt-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--gantt-panel);
+  border-bottom: 1px solid var(--gantt-border);
+}
+
+.gantt-time-header {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.gantt-time-cell {
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--gantt-muted);
+  border-left: 1px solid var(--gantt-border);
+  font-variant-numeric: tabular-nums;
+}
+.gantt-rtl .gantt-time-cell {
+  border-left: none;
+  border-right: 1px solid var(--gantt-border);
+}
+
+/* ── Row ──────────────────────────────────────────────────────────── */
+.gantt-row {
+  display: flex;
+  border-bottom: 1px solid var(--gantt-border);
+  transition: background 0.1s;
+}
+.gantt-row:hover { background: color-mix(in srgb, var(--gantt-primary) 3%, var(--gantt-bg)); }
+
+/* ── Row content area ─────────────────────────────────────────────── */
+.gantt-row-content {
+  flex: 1;
+  position: relative;
+  overflow: visible;
+}
+
+.gantt-grid-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gantt-border);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ── Gantt items ──────────────────────────────────────────────────── */
+.gantt-item {
+  position: absolute;
+  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  transition: box-shadow 0.15s, opacity 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.gantt-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+.gantt-item:focus-visible {
+  outline: 2px solid var(--gantt-primary);
+  outline-offset: 1px;
+}
+.gantt-item-dragging {
+  opacity: 0.85;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.gantt-item-booked  { background: var(--gantt-booked);  border: 1px solid color-mix(in srgb, var(--gantt-booked) 70%, #000); }
+.gantt-item-blocked { background: var(--gantt-blocked); border: 1px solid color-mix(in srgb, var(--gantt-blocked) 70%, #000); cursor: default !important; }
+.gantt-item-custom  { background: var(--gantt-custom);  border: 1px solid color-mix(in srgb, var(--gantt-custom) 70%, #000); }
+.gantt-item-outside { background: var(--gantt-blocked); border: 1px solid color-mix(in srgb, var(--gantt-blocked) 70%, #000); cursor: default !important; }
+
+/* ── Resize handles ───────────────────────────────────────────────── */
+.gantt-handle {
+  width: 8px;
+  flex-shrink: 0;
+  cursor: ew-resize;
+  background: rgba(0,0,0,0.08);
+  transition: background 0.15s;
+  z-index: 2;
+}
+.gantt-handle:hover { background: rgba(0,0,0,0.2); }
+.gantt-handle-left  { border-radius: 8px 0 0 8px; }
+.gantt-handle-right { border-radius: 0 8px 8px 0; margin-left: auto; }
+
+/* ── Item inner text ──────────────────────────────────────────────── */
+.gantt-item-inner {
+  flex: 1;
+  padding: 4px 6px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+.gantt-item-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gantt-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+.gantt-item-sub {
+  font-size: 11px;
+  color: var(--gantt-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+/* ── RTL item direction fix ───────────────────────────────────────── */
+.gantt-rtl .gantt-item { direction: rtl; }
+.gantt-rtl .gantt-item-inner { text-align: right; }
+.gantt-rtl .gantt-handle-left  { order: 2; border-radius: 0 8px 8px 0; }
+.gantt-rtl .gantt-handle-right { order: -1; border-radius: 8px 0 0 8px; }
+
+/* ── Day mode: date columns ───────────────────────────────────────── */
+.gantt-row-day-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.gantt-day-cell {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid var(--gantt-border);
+  min-width: 0;
+  padding: 0;
+}
+.gantt-rtl .gantt-day-cell {
+  border-left: none;
+  border-right: 1px solid var(--gantt-border);
+}
+
+.gantt-today-col {
+  background: color-mix(in srgb, var(--gantt-primary) 6%, transparent);
+}
+
+.gantt-day-cell-target {
+  background: color-mix(in srgb, var(--gantt-primary) 12%, transparent);
+  outline: 2px dashed var(--gantt-primary);
+  outline-offset: -2px;
+}
+
+.gantt-day-item {
+  position: absolute;
+  left: 4px !important;
+  right: 4px !important;
+  width: auto !important;
+}
+
+/* Day-mode items rendered at row level (supports multi-day span) */
+.gantt-day-item-overlay {
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+/* ── Badge ────────────────────────────────────────────────────────── */
+.gantt-badge {
+  font-size: 11px;
+  color: var(--gantt-muted);
+  background: var(--gantt-bg);
+  border: 1px solid var(--gantt-border);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+/* ── Selection mode ───────────────────────────────────────────────── */
+.gantt-cell-selected {
+  background: color-mix(in srgb, var(--gantt-primary) 18%, transparent) !important;
+  outline: 1px solid var(--gantt-primary);
+  outline-offset: -1px;
+}
+
+/* ── Create ghost (hour mode drag-to-create) ──────────────────────── */
+.gantt-create-ghost {
+  position: absolute;
+  border-radius: 8px;
+  border: 2px dashed var(--gantt-primary);
+  background: color-mix(in srgb, var(--gantt-primary) 15%, transparent);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 6;
+}
+.gantt-create-ghost .gantt-item-title {
+  font-size: 11px;
+  color: var(--gantt-primary);
+  font-weight: 600;
+  padding: 0 6px;
+}
+
+.gantt-selection-ghost {
+  position: absolute;
+  background: color-mix(in srgb, var(--gantt-primary) 15%, transparent);
+  border: 1.5px dashed var(--gantt-primary);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 3;
+}
